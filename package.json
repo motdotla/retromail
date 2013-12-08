@@ -1,0 +1,20 @@
+{
+  "name": "retromail",
+  "version": "0.0.1",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "main": "app.js",
+  "description": "Email as real mail delivered to your doorstep.",
+  "dependencies": {
+    "contextio": "0.4.0",
+    "dotenv": "0.2.3",
+    "hapi": "1.6.2",
+    "jquery": "1.8.3",
+    "lob": "1.0.1",
+    "moment": "2.4.0",
+    "request": "2.21.0",
+    "wkhtmltopdf": "0.1.4"
+  }
+}

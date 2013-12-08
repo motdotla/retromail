@@ -1,0 +1,9 @@
+.bundle
+tmp/
+!tmp/pids
+tmp/pids/*
+log/
+.env*
+!.env.example
+.ruby-version
+node_modules
