@@ -17,14 +17,14 @@ ADDRESS_STATE         = process.env.ADDRESS_STATE;
 ADDRESS_ZIP           = process.env.ADDRESS_ZIP;
 ADDRESS_COUNTRY       = process.env.ADDRESS_COUNTRY;
 
-var jQuery      = require('jquery');
+var wkhtmltopdf_path  = process.env.PORT ? './bin/wkhtmltopdf-linux-amd64' : 'wkhtmltopdf';
+
 var contextio   = require('contextio');
 var exec        = require('child_process').exec;
 var fs          = require('fs');
 var lob         = require('lob');
 lob             = new lob(LOB_KEY);
 var moment      = require('moment');
-var wkhtmltopdf = require('wkhtmltopdf');
 
 function execute(command, callback){
   exec(command, function(error, stdout, stderr){ 
@@ -51,6 +51,7 @@ var runTask = function () {
 
       response.body.forEach(function(email) {
         console.log(email);
+
         var subject           = email.subject;
         var from              = email.addresses.from.email;
         var date              = moment(parseInt(''+email.date+'000')).format("MMM Do");
@@ -97,7 +98,7 @@ var runTask = function () {
       var unix_time             = +new Date(); 
       var output_path           = "/tmp/" + unix_time + ".pdf";
 
-      var command = "wkhtmltopdf --page-size letter --orientation portrait " + html_paths_as_string + " " + output_path;
+      var command = wkhtmltopdf_path + " --page-size letter --orientation portrait " + html_paths_as_string + " " + output_path;
       execute(command, function(stdout) {
         lob.addresses.create({
           name: NAME,
