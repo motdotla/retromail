@@ -16,6 +16,7 @@ ADDRESS_CITY          = process.env.ADDRESS_CITY;
 ADDRESS_STATE         = process.env.ADDRESS_STATE;
 ADDRESS_ZIP           = process.env.ADDRESS_ZIP;
 ADDRESS_COUNTRY       = process.env.ADDRESS_COUNTRY;
+LIMIT                 = process.env.LIMIT || 100;
 
 var wkhtmltopdf_path  = process.env.PORT ? './bin/wkhtmltopdf-linux-amd64' : 'wkhtmltopdf';
 
@@ -40,7 +41,7 @@ var contextio_client  = new contextio.Client({
 var runTask = function () {
   var value = function () {
     var filters = {
-      limit:        1,
+      limit:        LIMIT,
       include_body: 1,
       folder:       "\\Inbox"
     }
