@@ -16,6 +16,7 @@ If running on [Heroku](http://heroku.com), do the following.
 git clone https://github.com/scottmotte/retromail.git
 cd retromail
 heroku create
+heroku addons:add scheduler
 heroku config:set CONTEXTIO_KEY=value
 heroku config:set CONTEXTIO_SECRET=value
 heroku config:set CONTEXTIO_ACCOUNT_ID=value
@@ -30,7 +31,9 @@ heroku config:set ADDRESS_COUNTRY=value
 git push heroku master
 ```
 
-Then setup, heroku to run the task.js once daily.
+Then setup, heroku to run the task.js once daily. It will look something like this.
+
+![](https://raw.github.com/scottmotte/retromail/master/heroku-scheduler-example.png) 
 
 ### Development
 
