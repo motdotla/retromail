@@ -17,14 +17,16 @@ git clone https://github.com/scottmotte/retromail.git
 cd retromail
 heroku create
 heroku addons:add scheduler
+heroku addons:add sendgrid
 heroku config:set CONTEXTIO_KEY=value
 heroku config:set CONTEXTIO_SECRET=value
 heroku config:set CONTEXTIO_ACCOUNT_ID=value
 heroku config:set LOB_KEY=value
-heroku config:set NAME=value
-heroku config:set ADDRESS_LINE1=value
+heroku config:set NAME=yourname
+heroku config:set EMAIL=youremail
+heroku config:set ADDRESS_LINE1="Your address"
 heroku config:set ADDRESS_LINE2=value
-heroku config:set ADDRESS_CITY=value
+heroku config:set ADDRESS_CITY="Your City"
 heroku config:set ADDRESS_STATE=value
 heroku config:set ADDRESS_ZIP=value
 heroku config:set ADDRESS_COUNTRY=value

@@ -10,6 +10,7 @@ CONTEXTIO_SECRET      = process.env.CONTEXTIO_SECRET;
 CONTEXTIO_ACCOUNT_ID  = process.env.CONTEXTIO_ACCOUNT_ID;
 LOB_KEY               = process.env.LOB_KEY;
 NAME                  = process.env.NAME;
+EMAIL                 = process.env.EMAIL;
 ADDRESS_LINE1         = process.env.ADDRESS_LINE1;
 ADDRESS_LINE2         = process.env.ADDRESS_LINE2;
 ADDRESS_CITY          = process.env.ADDRESS_CITY;
@@ -17,6 +18,8 @@ ADDRESS_STATE         = process.env.ADDRESS_STATE;
 ADDRESS_ZIP           = process.env.ADDRESS_ZIP;
 ADDRESS_COUNTRY       = process.env.ADDRESS_COUNTRY;
 LIMIT                 = process.env.LIMIT || 100;
+SENDGRID_USERNAME     = process.env.SENDGRID_USERNAME;
+SENDGRID_PASSWORD     = process.env.SENDGRID_PASSWORD;
 
 var wkhtmltopdf_path  = process.env.PORT ? './bin/wkhtmltopdf-linux-amd64' : 'wkhtmltopdf';
 
@@ -26,6 +29,7 @@ var fs          = require('fs');
 var lob         = require('lob');
 lob             = new lob(LOB_KEY);
 var moment      = require('moment');
+var sendgrid    = require('sendgrid')(SENDGRID_USERNAME, SENDGRID_PASSWORD);
 
 function execute(command, callback){
   exec(command, function(error, stdout, stderr){ 
@@ -101,8 +105,21 @@ var runTask = function () {
 
       var command = wkhtmltopdf_path + " --page-size letter --orientation portrait " + html_paths_as_string + " " + output_path;
       execute(command, function(stdout) {
+        var email     = new sendgrid.Email();
+        email.to      = EMAIL;
+        email.from    = EMAIL;
+        email.subject = '[retromail] '+unix_time;
+        email.text    = 'Attached is your retromail from '+unix_time;
+        email.addFile({ path: output_path });
+
+        sendgrid.send(email, function(err, json) {
+          if (err) { return console.error(err); }
+          console.log(json);
+        });
+
         lob.addresses.create({
-          name: NAME,
+          name:             NAME,
+          email:            EMAIL,
           address_line1:    ADDRESS_LINE1,
           address_line2:    ADDRESS_LINE2,
           address_city:     ADDRESS_CITY,
