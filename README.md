@@ -6,7 +6,7 @@ Email as real mail delivered to your doorstep.
 
 First, [Create a free account at Context.io](http://context.io) and connect your gmail account to context.io through context.io's interface.
 
-Second, [Create a free account at Lob.io](http://lob.io).
+Second, [Create a free account at Lob.com](http://lob.com).
 
 ### Production
 
